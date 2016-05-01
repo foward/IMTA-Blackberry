@@ -1,0 +1,51 @@
+<h1><%= link_to 'Inicio', {:controller => "site" , :action => "index"}%> / Lista de usuarios</h1>
+<br/>
+<div id="nav">
+<%= link_to 'Agregar Cliente', :action => 'new', :tipo_usuario => 'cliente' %>
+<%= link_to 'Agregar Técnico', :action => 'new', :tipo_usuario => 'tecnico' %>
+<%= link_to 'Agregar Jefe Técnico', :action => 'new', :tipo_usuario => 'jefe_tecnico' %>
+</div>
+
+<br/>
+<table id="listas">
+  <tr>
+    <th>Nombres</th>
+    <th>Apellidos</th>
+    <th>Capacidad tecnica</th>
+    <th>Tipo usuario</th>
+    <th>RUT</th>
+    <th>Teléfono movil</th>
+    <th>Teléfono oficina</th>
+    <th>Teléfono fax</th>
+    <th>Email</th>
+    <th>Estado del técnico</th>
+    <th colspan="3">Acciones</th>
+  </tr>
+
+  <% @usuarios.each do |usuario| %>
+    <tr>
+      <td><%=h usuario.nombres %></td>
+      <td><%=h usuario.apellidos %></td>
+      <td><%=h capacidad_tecnica(usuario.capacidad_tecnica) %></td>
+      <td><%=h tipo_usuario(usuario.tipo_usuario) %></td>
+      <td><%=h usuario.rut %></td>
+      <td><%=h usuario.telefono_movil %></td>
+      <td><%=h usuario.telefono_oficina %></td>
+      <td><%=h usuario.telefono_fax %></td>
+      <td><%=h usuario.email %></td>
+      <td><%=h usuario.estado_tecnico %></td>
+
+
+      <td><%= link_to image_tag("icon_show.png", :class => "nodecoration"), :action => 'show', :id => usuario %></td>
+      <td><%= link_to image_tag("icon_edit.png", :class => "nodecoration"), :action => 'edit', :id => usuario %></td>
+      <td>
+        <% if @usuario_en_sesion.admin? or @usuario_en_sesion.soy_yo?(usuario) %>
+          <%= link_to image_tag("icon_delete.png", :class => "nodecoration"), {:controller => 'usuarios' , :action => 'destroy', :id => usuario} , :confirm => 'Desea eliminar al usuario? \nIMPORTANTE: No hay vuelta atras!', :post => true %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<br />
+

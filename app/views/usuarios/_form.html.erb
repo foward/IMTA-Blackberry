@@ -1,0 +1,148 @@
+<fieldset>
+  <legend>Detalles Personales</legend>
+
+  <%=image_tag("usuario_none.png", :class => "nodecoration") %>&nbsp;
+  <br/>
+
+  <% if params[:tipo_usuario] == "cliente" %>
+  <strong><span>Nombres y Apellidos de la persona de contacto de la empresa</span></strong>
+  <% end %>
+  <br/>
+  <p>
+    <%= label_tag :nombres %><br />
+    <%= text_field "usuario",:nombres %>
+  </p>
+  <p>
+    <%= label_tag :apellidos %><br />
+    <%= text_field "usuario",:apellidos %>
+  </p>
+  <% if params[:tipo_usuario] == "cliente" %>
+    <p>
+      <%= label_tag :Rut_de_la_Empresa %><br />
+      <%= text_field "usuario",:rut , :size =>10%>
+    </p>
+  <% end %>
+  <% if params[:tipo_usuario] != "cliente" %>
+    <p>
+      <%= label_tag :RUT %><br />
+      <%= text_field "usuario",:rut , :size =>10%>
+    </p>
+  <% end %>
+  <p>
+    <%= label_tag :email %><br />
+    <%= text_field "usuario",:email %>
+  </p>
+  <p>
+    <%= label_tag :usuario %><br />
+    <%= text_field "usuario",:usuario %>
+  </p>
+  <p>
+    <%= label_tag :password %><br />
+    <%= password_field "usuario",:password %>
+  </p>
+
+  <p>
+    <%= label_tag :foto_path %><br />
+    <%= file_field "usuario",:foto_path %>
+  </p>
+  <% if @usuario_en_sesion.tecnico? or @usuario_en_sesion.admin? %>
+  <% if params[:tipo_usuario] == "tecnico" %>
+    <p>
+      <%= label_tag :estado_tecnico %><br />
+      <%= text_area "usuario",:estado_tecnico ,:rows => 5, :cols => 25 %>
+    </p>
+    <p>
+      <%= label_tag :authtoken %><br />
+      <%= text_field "usuario",:authtoken %>
+    </p>
+      <% end %>
+  <% end %>
+</fieldset>
+
+
+<% if @usuario_en_sesion.jefe_tecnico?  or @usuario_en_sesion.admin?%>
+  <fieldset>
+    <legend>Información Técnica</legend>
+
+  
+    <% if params[:tipo_usuario] == "cliente" %>
+
+    <input type="hidden" id="usuario_tipo_usuario" name="usuario[tipo_usuario]" value="<%= Usuario::CLIENTE %>"  />
+
+    <% end %>
+    <% if params[:tipo_usuario] == "tecnico" %>
+
+    <input type="hidden" id="usuario_tipo_usuario" name="usuario[tipo_usuario]" value="<%= Usuario::TECNICO %>"  />
+
+    <% end %>
+    <% if params[:tipo_usuario] == "jefe_tecnico" %>
+
+    <input type="hidden" id="usuario_tipo_usuario" name="usuario[tipo_usuario]" value="<%= Usuario::JEFE_TECNICO %>"  />
+
+    <% end %>
+
+      <% if params[:tipo_usuario] == nil %>
+
+        <p>
+            <%= label_tag :tipo_usuario %><br />
+
+            <%= options  = Usuario::ROLES
+            select('usuario', 'tipo_usuario', options) %>
+          </p>
+
+    <% end %>
+
+
+ 
+      <p>
+        <%= label_tag :capacidad_tecnica %><br />
+        <%= capacidades  = Usuario::CAPACIDADES
+        select('usuario', 'capacidad_tecnica', capacidades) %>
+      </p>
+   
+  </fieldset>
+<% end %>
+
+
+<% if @usuario_en_sesion.jefe_tecnico? or  @usuario_en_sesion.cliente?  or @usuario_en_sesion.admin?%>
+  <fieldset>
+    <legend>Dirección</legend>
+
+    <p>
+      <%= label_tag :empresa %><br />
+      <%= text_field "usuario",:empresa %>
+    </p>
+    <p>
+      <%= label_tag :direccion %><br />
+      <%= text_field "usuario",:direccion %>
+    </p>
+    <p>
+      <%= label_tag :numero %><br />
+      <%= text_field "usuario",:numero %>
+    </p>
+    <p>
+      <%= label_tag :ciudad %><br />
+      <%= text_field "usuario",:ciudad %>
+    </p>
+    <p>
+      <%= label_tag :comuna %><br />
+      <%= text_field "usuario",:comuna %>
+    </p>
+  </fieldset>
+<% end %>
+
+<fieldset>
+  <legend>Teléfonos de Contacto</legend>
+  <p>
+    <%= label_tag :telefono_movil %><br />
+    <%= text_field "usuario",:telefono_movil %>
+  </p>
+  <p>
+    <%= label_tag :telefono_oficina %><br />
+    <%= text_field "usuario",:telefono_oficina %>
+  </p>
+  <p>
+    <%= label_tag :telefono_fax %><br />
+    <%= text_field "usuario",:telefono_fax %>
+  </p>
+</fieldset>

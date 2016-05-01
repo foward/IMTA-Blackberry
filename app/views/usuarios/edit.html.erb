@@ -1,0 +1,14 @@
+<h1><%= link_to 'Inicio', {:controller => "site" , :action => "index"}%> / Editar Usuario</h1>
+
+<%= form_tag :action=>'update', :id => @usuario  %>
+<%= error_messages_for 'usuario' %>
+
+  <%= render :partial => 'form' %>  
+  <p>
+    <%= submit_tag 'Actualizar' %>
+  </p>
+
+
+<%= link_to 'Volver', :action =>'index' %> |
+
+<%= link_to 'Mostrar', :action =>"show", :id => @usuario.id %> 

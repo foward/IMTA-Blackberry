@@ -1,0 +1,12 @@
+<h1>Editar Máquina</h1>
+
+<%= form_tag :action=>'update', :id => @maquina  %>
+<%= error_messages_for 'maquina' %>
+
+ <%= render :partial => 'form' %>
+<p>
+  <%= submit_tag 'Actualizar Datos' %>
+</p>
+
+
+<%= link_to 'Volver', :action =>'index' %>

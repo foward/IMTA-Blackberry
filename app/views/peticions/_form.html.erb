@@ -1,0 +1,22 @@
+<p>
+  <%= label_tag :comentario %><br />
+  <%= text_area "peticion",:comentario,:rows => 5, :cols => 25 %>
+</p>
+<p>
+  <%= label_tag :fecha_recepcion %><br />
+  <%= date_select "peticion", :fecha_recepcion,
+    :start_year => Time.now.year,
+    :end_year => 2020,
+    :order => [:day, :month, :year] %>
+</p>
+
+
+  
+<% if @usuario_en_sesion.cliente?%>
+ <input type="hidden" id="peticion_maquina_id" name="peticion[maquina_id]" value="<%= params[:maquina]%>"  />
+<%else%>
+ <input type="hidden" id="peticion_maquina_id" name="peticion[maquina_id]" value="<%= params[:maquina]%>"  />
+  <p>
+    <%= select 'peticion', 'usuario_id', @clientes.collect {|c| [ c.empresa, c.id ] } %>
+  </p>
+<% end  %>

@@ -1,0 +1,12 @@
+<h1>Editar Petición</h1>
+
+<%= form_tag :action=>'update', :id => @peticion  %>
+<%= error_messages_for 'peticion' %>
+
+ <%= render :partial => 'form' %>
+<p>
+  <%= submit_tag 'Actualizar Datos' %>
+</p>
+
+
+<%= link_to 'Volver', :action =>'index' %>

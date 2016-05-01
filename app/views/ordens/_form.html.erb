@@ -1,0 +1,82 @@
+<fieldset>
+  <legend>Datos Generales</legend>
+
+  <p>
+    <%= label_tag :tipo_orden %><br />
+
+    <%= tipo  = Orden::TIPO_ORDEN
+    select('orden', 'tipo_orden', tipo) %>
+  </p>
+  <p>
+    <%= label_tag :numero_orden %><br />
+    <%= text_field "orden",:numero_orden %>
+  </p>
+  <p>
+    <%= label_tag :fecha_apertura %><br />
+    <%= datetime_select "orden",:fecha_apertura %>
+  </p>
+  <p>
+    <%= label_tag :fecha_cierre %><br />
+
+    <%= date_select "orden", :fecha_cierre,
+      :include_blank => true,
+      :order => [:day, :month, :year] %>
+  </p>
+  <p>
+    <%= label_tag :estado %><br />
+    <%= estado  = Orden::ESTADO
+    select('orden', 'estado', estado) %>
+
+  </p>
+</fieldset>
+
+<fieldset>
+  <legend>Comentarios Orden de Trabajo</legend>
+  <% if @usuario_en_sesion.tecnico?%>
+    <p>
+      <%= label_tag :comentario_inicial %><br />
+      <%= text_area "orden",:comentario_inicial ,:rows => 5, :cols => 25 %>
+    </p>
+
+  <p>
+    *<%= label_tag :comentario_final %> <br/><span><strong>Debe ser llenado al final</strong></span><br />
+    <%= text_area "orden",:comentario_final ,:rows => 5, :cols => 25 %>
+  </p>
+    <% end %>
+
+  <% if @usuario_en_sesion.jefe_tecnico?  or @usuario_en_sesion.admin?%>
+    <p>
+      <%= label_tag :Comentario_del_Jefe_Técnico %><br />
+      <%= text_area "orden",:comentario_jefe,:rows => 5, :cols => 25  %>
+    </p>
+  <% end %>
+</fieldset>
+
+<fieldset>
+  <legend>Visitas</legend>
+  <p>
+    <%= label_tag :Inicio_Visita %><br />
+    <%= datetime_select "orden",:hora_inicial %>
+  </p>
+  <p>
+    <%= label_tag :Hasta %><br />
+    <%= datetime_select "orden",:hora_termino %>
+  </p>
+</fieldset>
+
+<fieldset>
+  <legend>Máquina</legend>
+  <strong>Nombre:</strong>
+ <%= link_to  maquina(@maquina.id), :id => @maquina, :controller => 'maquinas', :action => 'show' %> <br/>
+ <strong>Area Técnica:</strong> <%= capacidad_tecnica(@maquina.tipo_area_tecnica)  %>
+</fieldset>
+
+
+<fieldset>
+  <legend>Lista de Tecnicos del area técnica correspondiente al error</legend>
+
+  <%= select 'orden', 'usuario_id', @tecnicos.collect {|c| [ c.nombres, c.id ] } %>
+  <br/><br/>
+<%= image_tag("icon_location.png")%> &nbsp; <a href="/ordens/mapa">Ver Tecnicos Cercanos al Cliente en este momento</a>
+
+</fieldset>

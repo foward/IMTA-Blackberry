@@ -1,0 +1,60 @@
+<h1><%= link_to 'Inicio', {:controller => "site" , :action => "index"}%> /<%= link_to 'Usuarios', {:controller => "usuarios" , :action => "index"}%> / Lista de Clientes en el Sistema</h1>
+<br/>
+<div id="nav">
+  <%= link_to 'Agregar Cliente', :action => 'new' , :tipo_usuario => 'cliente' %>
+</div>
+<br/>
+
+
+<br/>
+<table id="listas">
+  <tr>
+    <th>Nombres</th>
+    <th>Apellidos</th>
+    <th>RUT Empresa</th>
+    <th>Nombre Empresa</th>
+    <th>Teléfono movil</th>
+    <th>Teléfono oficina</th>
+    <th>Teléfono fax</th>
+    <th>Email</th>
+    <th>Dirección</th>
+    <th>Número</th>
+    <th>Comuna</th>
+    <th>Ciudad</th>
+    <th>Localización</th>
+    
+    <th colspan="3">Acciones</th>
+
+
+  </tr>
+
+  <% @usuarios.each do |usuario| %>
+    <tr>
+      <td><%=h usuario.nombres %></td>
+      <td><%=h usuario.apellidos %></td>
+      <td><%=h usuario.rut %></td>
+      <td><%=h usuario.empresa %></td>
+      <td><%=h usuario.telefono_movil %></td>
+      <td><%=h usuario.telefono_oficina %></td>
+      <td><%=h usuario.telefono_fax %></td>
+      <td><%=h usuario.email %></td>
+      <td><%=h usuario.direccion %></td>
+      <td><%=h usuario.numero %></td>
+      <td><%=h usuario.comuna %></td>
+      <td><%=h usuario.ciudad %></td>
+
+      <td><%= link_to image_tag("icon_location.png", :class => "nodecoration"), :action => 'show', :id => usuario %></td>
+
+      <td><%= link_to "Mostrar", :action => 'show', :id => usuario %></td>
+      <td><%= link_to "Editar", :action => 'edit', :id => usuario %></td>
+      <td>
+        <% if @usuario_en_sesion.admin? or @usuario_en_sesion.jefe_tecnico? %>
+          <%= link_to 'eliminar', {:controller => 'usuarios' , :action => 'destroy', :id => usuario} , :confirm => 'Desea eliminar al usuario? \n IMPORTANTE: No hay vuelta atras!', :post => true %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<br />
+

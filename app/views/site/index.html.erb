@@ -1,0 +1,50 @@
+
+
+
+  <% if @usuario_en_sesion.admin? -%>
+<h1>Panel de Administración</h1>
+<br/>
+
+        <%= link_to image_tag("tecnicos.png", :class => "nodecoration"), {:controller => "usuarios",:action => "tecnicos"}  %> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <%= link_to image_tag("clientes.png", :class => "nodecoration"), {:controller => "usuarios",:action => "clientes"}  %> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <%= link_to image_tag("equipos.png", :class => "nodecoration"), {:controller => "maquinas",:action => "index"}  %> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <br/>
+    <%= link_to image_tag("inventario.png", :class => "nodecoration"),{:controller => "maquinas",:action => "index"}  %> &nbsp;&nbsp;&nbsp;&nbsp;
+    <%= link_to image_tag("peticiones.png", :class => "nodecoration"),{:controller => "peticions", :action => "index"}  %> &nbsp;&nbsp;
+    <%= link_to image_tag("agenda.png", :class => "nodecoration"),{:controller => "peticions", :action => "index"}  %> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <br/>
+    <%= link_to image_tag("ordenes.png", :class => "nodecoration"),{:controller => "ordens", :action => "index"}  %> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <%= link_to image_tag("ayuda.png", :class => "nodecoration"),{:controller => "ayuda", :action => "index"}  %>
+
+  <% end -%>
+  <% if @usuario_en_sesion.cliente? -%>
+    <h1>Panel de Administración</h1>
+<br/>
+    <%= link_to image_tag("mis_equipos.png", :class => "nodecoration"), {:controller => "maquinas",:action => "index"}  %>&nbsp;&nbsp;&nbsp;
+    <%= link_to image_tag("peticiones.png", :class => "nodecoration"),{:controller => "peticions", :action => "index"}  %> &nbsp;&nbsp;
+    <%= link_to image_tag("ayuda.png", :class => "nodecoration"),{:controller => "ayuda", :action => "index"}  %>
+ 
+  <% end -%>
+  <% if @usuario_en_sesion.jefe_tecnico? -%>
+    <h1>Panel de Administración</h1>
+<br/>
+    <%= link_to image_tag("tecnicos.png", :class => "nodecoration"), {:controller => "usuarios",:action => "tecnicos"}  %> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <%= link_to image_tag("clientes.png", :class => "nodecoration"), {:controller => "usuarios",:action => "clientes"}  %> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <%= link_to image_tag("equipos.png", :class => "nodecoration"), {:controller => "maquinas",:action => "index"}  %> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <br/>
+    <%= link_to image_tag("inventario.png", :class => "nodecoration"),{:controller => "maquinas",:action => "index"}  %> &nbsp;&nbsp;&nbsp;&nbsp;
+    <%= link_to image_tag("peticiones.png", :class => "nodecoration"),{:controller => "peticions", :action => "index"}  %> &nbsp;&nbsp;
+    <%= link_to image_tag("agenda.png", :class => "nodecoration"),{:controller => "peticions", :action => "index"}  %> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <br/>
+    <%= link_to image_tag("ordenes.png", :class => "nodecoration"),{:controller => "ordens", :action => "index"}  %> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <%= link_to image_tag("ayuda.png", :class => "nodecoration"),{:controller => "ayuda", :action => "index"}  %>
+
+  <% end -%>
+  <% if @usuario_en_sesion.tecnico? -%>
+    <h1>Panel Técnico</h1>
+<br/>
+<%= text_field "userform", "usuario", :size=>20 ,:class =>"inputText"%> <input class="btn" type="submit" value="Enviar Estado" name="commit"/><br/>
+     <%= link_to image_tag("agenda.png", :class => "nodecoration"),{:controller => "ordens",:action => "agenda" , :tecnico_id => @usuario_en_sesion.id}  %> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+        <%= link_to image_tag("ayuda.png", :class => "nodecoration"),{:controller => "ayuda", :action => "index"}  %>
+  <% end -%>

@@ -1,0 +1,26 @@
+ <%= link_to image_tag("peticiones.png", :class => "nodecoration"),{:controller => "peticions", :action => "index"}  %> &nbsp;&nbsp;
+ <br/>
+<p>
+  <b>Fecha recepción:</b>
+  <%=h @peticion.fecha_recepcion %>
+</p>
+
+<p>
+  <b>Máquina:</b>
+  <%= link_to  maquina(@peticion.maquina_id), :id => @peticion.maquina_id, :controller => 'maquinas', :action => 'show' %>
+</p>
+
+<p>
+  <b>Empresa:</b>
+  <%=h empresa(@peticion.usuario_id) %>
+</p>
+<br/>
+<p class="bigText">
+  <b>Comentario:</b>
+
+  <%=h @peticion.comentario %>
+</p>
+
+
+<br/>
+<%= link_to 'Editar', :action =>"edit", :id => @peticion.id %> | <%= link_to 'Volver', :action =>'index' %>

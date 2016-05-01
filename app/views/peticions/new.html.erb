@@ -1,0 +1,13 @@
+<h1>Generar Petición</h1>
+
+
+<%= form_tag :action=>'create' %>
+<%= error_messages_for 'peticion' %>
+
+ <%= render :partial => 'form' %>
+<p>
+  <%= submit_tag 'Generar Petición' %>
+</p>
+
+
+<%= link_to 'Volver', :action =>'index' %>

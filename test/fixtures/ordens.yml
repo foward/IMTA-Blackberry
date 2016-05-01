@@ -1,0 +1,31 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  tipo_orden: 1
+  numero_orden: 1
+  fecha_apertura: 2009-11-25 01:38:17
+  fecha_cierre: 2009-11-25 01:38:17
+  estado: MyText
+  comentario_inicial: MyText
+  comentario_final: MyText
+  comentario_jefe: MyText
+  hora_inicial: 2009-11-25 01:38:17
+  hora_termino: 2009-11-25 01:38:17
+  fecha_visita: 2009-11-25 01:38:17
+  maquina_id: 1
+  usuario_id: 1
+
+two:
+  tipo_orden: 1
+  numero_orden: 1
+  fecha_apertura: 2009-11-25 01:38:17
+  fecha_cierre: 2009-11-25 01:38:17
+  estado: MyText
+  comentario_inicial: MyText
+  comentario_final: MyText
+  comentario_jefe: MyText
+  hora_inicial: 2009-11-25 01:38:17
+  hora_termino: 2009-11-25 01:38:17
+  fecha_visita: 2009-11-25 01:38:17
+  maquina_id: 1
+  usuario_id: 1

@@ -1,0 +1,30 @@
+<h1>Agenda Diaria</h1>
+
+
+
+
+<table id="listas">
+  <tr>
+    <th>Tipo orden</th>
+    <th>Numero orden</th>
+    <th>Inicio -Visita</th>
+    <th>Termino - Visita</th>
+    <th>Cliente</th>
+    <th>Acciones</th>
+  </tr>
+
+  <% @ordens.each do |orden| %>
+    <tr>
+      <td><%=image_tag("icon_mantencion.png", :class => "nodecoration") %>&nbsp;<%=h tipo_orden(orden.tipo_orden) %></td>
+      <td><%=h orden.numero_orden %></td>
+      <td><%=h format_date(orden.hora_inicial) %></td>
+      <td><%=h format_date(orden.hora_termino) %></td>
+      <% @maquina = Maquina.find(orden.maquina_id) %>
+      <td><%=h empresa(@maquina.usuario_id) %>   </td>
+      <td><%= link_to image_tag("icon_show.png", :class => "nodecoration"), :action => 'show', :id => orden %></td>
+     
+    </tr>
+  <% end %>
+</table>
+
+<br />

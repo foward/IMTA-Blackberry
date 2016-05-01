@@ -1,0 +1,49 @@
+ 
+<p>
+    <%= label_tag :Marca %><br />
+    <%= text_field "maquina",:marca %>
+  </p>
+  <p>
+    <%= label_tag :modelo %><br />
+    <%= text_field "maquina",:modelo %>
+  </p>
+  <p>
+    <%= label_tag :num_serie %><br />
+    <%= text_field "maquina",:num_serie %>
+  </p>
+  <p>
+    <%= label_tag :codigo_interno %><br />
+    <%= text_field "maquina",:codigo_interno %>
+  </p>
+  <p>
+    <%= label_tag :descripción %><br />
+    <%= text_area "maquina",:descripcion,:rows => 5, :cols => 25 %>
+  </p>
+    <% if @usuario_en_sesion.jefe_tecnico?  or @usuario_en_sesion.admin?%>
+  <p>
+       <%= label_tag :Area_técnica_que_necesita_esta_máquina %><br />
+        <%= capacidades  = Usuario::CAPACIDADES
+        select('maquina', 'tipo_area_tecnica', capacidades) %>
+  </p>
+  <% end  %>
+  <p>
+    <%= label_tag :fecha_compra %><br />
+    <%= date_select "maquina", :fecha_compra,
+        :start_year => 1980,
+        :end_year => Time.now.year,
+        :order => [:day, :month, :year] %>
+  </p>
+  <p>
+    <%= label_tag :fecha_termino_garantia %><br />
+    <%= date_select "maquina", :fecha_termino_garantia,
+        :start_year => 1980,
+        :end_year => 2030,
+        :order => [:day, :month, :year] %>
+  </p>
+
+ <% if @usuario_en_sesion.cliente?%>
+      <input type="hidden" id="maquina_usuario_id" name="maquina[usuario_id]" value="<%= @usuario_en_sesion.id %>"  />
+ <%else%>
+   <%= select 'maquina', 'usuario_id', @clientes.collect {|c| [ c.empresa, c.id ] } %>
+  <% end  %>
+

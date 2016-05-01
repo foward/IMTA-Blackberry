@@ -1,0 +1,129 @@
+<p>
+  <b>Foto</b>
+  <% if @usuario_en_sesion.jefe_tecnico?  or @usuario_en_sesion.admin? or @usuario_en_sesion.tecnico?%>
+  <%= image_tag(@usuario.foto_path) %>
+  <% end %>
+</p>
+
+
+<fieldset>
+  <legend>Detalles Personales</legend>
+<p>
+  <b>Nombres:</b>
+  <%=h @usuario.nombres %>
+</p>
+
+<p>
+  <b>Apellidos:</b>
+  <%=h @usuario.apellidos %>
+</p>
+
+<% if @usuario_en_sesion.jefe_tecnico?  or @usuario_en_sesion.admin? or @usuario_en_sesion.tecnico?%>
+<p>
+  <b>Rut:</b>
+  <%=h @usuario.rut %>
+</p>
+<% end %>
+<p>
+  <b>Email:</b>
+  <%=h @usuario.email %>
+</p>
+
+<p>
+  <b>Usuario:</b>
+  <%=h @usuario.usuario %>
+</p>
+
+<p>
+  <b>Password:</b>
+  *****
+</p>
+
+
+<% if @usuario_en_sesion.tecnico?  or @usuario_en_sesion.admin?%>
+<p>
+  <b>Estado del Técnico:</b>
+  <%=h @usuario.estado_tecnico %>
+</p>
+
+<p>
+  <b>Authtoken:</b>
+  <%=h @usuario.authtoken %>
+</p>
+<% end %>
+</fieldset>
+
+<% if @usuario_en_sesion.jefe_tecnico?  or @usuario_en_sesion.admin?%>
+<fieldset>
+  <legend>Información Técnica</legend>
+  <% if @usuario.tipo_usuario != Usuario::CLIENTE%>
+<p>
+  <b>Capacidad Técnica:</b>
+  <%=h capacidad_tecnica(@usuario.capacidad_tecnica) %>
+</p>
+<% end %>
+<p>
+  <b>Tipo usuario:</b>
+  <%=h tipo_usuario(@usuario.tipo_usuario) %>
+</p>
+</fieldset>
+<% end %>
+
+<fieldset>
+  <legend>Teléfonos de Contacto</legend>
+<p>
+  <b>Telefono movil:</b>
+  <%=h @usuario.telefono_movil %>
+</p>
+
+<p>
+  <b>Telefono oficina:</b>
+  <%=h @usuario.telefono_oficina %>
+</p>
+
+<p>
+  <b>Telefono fax:</b>
+  <%=h @usuario.telefono_fax %>
+</p>
+
+</fieldset>
+
+
+<% if @usuario_en_sesion.jefe_tecnico?  or @usuario_en_sesion.admin? or @usuario_en_sesion.cliente?%>
+<fieldset>
+  <legend>Cliente</legend>
+
+<p>
+  <b>Empresa:</b>
+  <%=h @usuario.empresa %>
+</p>
+
+<% if @usuario_en_sesion.cliente?%>
+<p>
+  <b>Rut de la Empresa:</b>
+  <%=h @usuario.rut %>
+</p>
+<% end %>
+
+<p>
+  <b>Dirección:</b>
+  <%=h @usuario.direccion %>
+</p>
+
+<p>
+  <b>Número:</b>
+  <%=h @usuario.numero %>
+</p>
+
+<p>
+  <b>Ciudad:</b>
+  <%=h @usuario.ciudad %>
+</p>
+
+<p>
+  <b>Comuna:</b>
+  <%=h @usuario.comuna %>
+</p>
+
+</fieldset>
+<% end %>

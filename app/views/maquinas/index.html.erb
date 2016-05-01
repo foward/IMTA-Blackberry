@@ -1,0 +1,79 @@
+
+<% if @usuario_en_sesion.jefe_tecnico?  or @usuario_en_sesion.admin?%>
+  <h1>Máquinas</h1>
+<% end  %>
+
+<% if @usuario_en_sesion.cliente?%>
+  <h1>Maquinas de la empresa <strong><%=  @usuario_en_sesion.empresa %></strong></h1>
+<% end  %>
+
+<br/>
+<div id="nav">
+  <%= link_to 'Agregar Máquina', :action => 'new' %>
+</div>
+<br/>
+
+<%
+if params[:cliente_id] == nil
+  if @usuario_en_sesion.jefe_tecnico?  or @usuario_en_sesion.admin?%>
+    <%= form_tag :action=>'listar' %>
+    <%= select 'maquina','usuario_id', @clientes.collect {|c| [ c.empresa, c.id ] } %>
+    <%= submit_tag 'Listar' %>
+  <% end
+end%>
+<table id="listas">
+  <tr>
+    <th>Foto</th>
+    <th>Marca</th>
+    <th>Modelo</th>
+    <th>Num serie</th>
+    <th>Código interno</th>
+    <th>Descripción</th>
+    <% if @usuario_en_sesion.jefe_tecnico?  or @usuario_en_sesion.admin?%>
+      <th>Tipo area Técnica</th>
+      <th>Cliente</th>
+    <% end  %>
+    <th>Calendario Mantenciones</th>
+    <th>Historial Mantenciones</th>
+    <th>Ver Manuales</th>
+    <% if @usuario_en_sesion.cliente? or @usuario_en_sesion.jefe_tecnico? %>
+      <th>Pedir Mantención</th>
+    <% end  %>
+
+    <th colspan="3">Acciones</th>
+  </tr>
+
+  <% @maquinas.each do |maquina| %>
+    <tr>
+      <td<%= link_to image_tag("icon_photo.png", :class => "nodecoration"),{:controller => "ordens", :action => "index"}  %></td>
+      <td><%=h maquina.marca %></td>
+      <td><%=h maquina.modelo %></td>
+      <td><%=h maquina.num_serie %></td>
+      <td><%=h maquina.codigo_interno %></td>
+      <td><%=h maquina.descripcion %></td>
+      <% if @usuario_en_sesion.jefe_tecnico?  or @usuario_en_sesion.admin?%>
+        <td><%=h capacidad_tecnica(maquina.tipo_area_tecnica) %></td>
+        <td><%= link_to maquina_es_de(maquina.usuario_id), :cliente_id => maquina.usuario_id, :controller => 'maquinas', :action => 'index' %></td>
+
+      <% end  %>
+
+      <td><%= link_to "Ver", :cliente_id => maquina.usuario_id, :controller => 'maquinas', :action => 'index' %></td>
+      <td><%= link_to "Ver", :cliente_id => maquina.usuario_id, :controller => 'maquinas', :action => 'index' %></td>
+      <td><a href="/manuales"><%= image_tag("icon_pdf.png", :class=>"nodecoration")%></a></td>
+      <% if @usuario_en_sesion.cliente? or @usuario_en_sesion.jefe_tecnico?%>
+        <td><%= link_to "Pedir Mantención", :controller => 'peticions',:action => 'new', :maquina => maquina %></td>
+      <% end  %>
+
+
+
+      <td><%= link_to image_tag("icon_show.png", :class => "nodecoration"), :action => 'show', :id => maquina %></td>
+      <td><%= link_to image_tag("icon_edit.png",:class => "nodecoration"), :action => 'edit', :id => maquina %></td>
+      <td>
+        <%= link_to image_tag("icon_delete.png",:class => "nodecoration"), {:controller => 'maquinas' , :action => 'destroy', :id => maquina} , :confirm => 'Desea eliminar esta máquina? \n IMPORTANTE: No hay vuelta atras!', :post => true %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<br />
+

@@ -1,0 +1,63 @@
+
+<% if @usuario_en_sesion.jefe_tecnico?  or @usuario_en_sesion.admin?%>
+  <h1>Maquinas</h1>
+<% end  %>
+
+<% if @usuario_en_sesion.cliente?%>
+  <h1>Maquinas de la empresa <strong><%=  @usuario_en_sesion.empresa %></strong></h1>
+<% end  %>
+
+<br/>
+<div id="nav">
+  <%= link_to 'Agregar Máquina', :action => 'new' %>
+</div>
+<br/>
+
+
+<table id="listas">
+  <tr>
+    <th>Foto</th>
+    <th>Marca</th>
+    <th>Modelo</th>
+    <th>Num serie</th>
+    <th>Código interno</th>
+    <th>Descripción</th>
+    <% if @usuario_en_sesion.jefe_tecnico?  or @usuario_en_sesion.admin?%>
+      <th>Tipo area Técnica</th>
+      <th>Cliente</th>
+    <% end  %>
+      <th>Calendario Mantenciones</th>
+      <th>Historial Mantenciones</th>
+
+
+    <th colspan="3">Acciones</th>
+  </tr>
+
+  <% @maquinas.each do |maquina| %>
+    <tr>
+      <td><%=h maquina.foto_1 %></td>
+      <td><%=h maquina.marca %></td>
+      <td><%=h maquina.modelo %></td>
+      <td><%=h maquina.num_serie %></td>
+      <td><%=h maquina.codigo_interno %></td>
+      <td><%=h maquina.descripcion %></td>
+      <% if @usuario_en_sesion.jefe_tecnico?  or @usuario_en_sesion.admin?%>
+        <td><%=h capacidad_tecnica(maquina.tipo_area_tecnica) %></td>
+        <td><%=h maquina_es_de(maquina.usuario_id) %></td>
+      <% end  %>
+
+        <td>Ver Calendario Mantenciones</td>
+        <td>Ver Historial Mantenciones</td>
+
+
+      <td><%= link_to "Mostrar", :action => 'show', :id => maquina %></td>
+      <td><%= link_to "Editar", :action => 'edit', :id => maquina %></td>
+      <td>
+        <%= link_to 'Eliminar', {:controller => 'maquinas' , :action => 'destroy', :id => maquina} , :confirm => 'Desea eliminar esta máquina? \n IMPORTANTE: No hay vuelta atras!', :post => true %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<br />
+

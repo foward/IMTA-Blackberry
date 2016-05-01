@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <title>IMTA - Ver Tecnicos</title>
+    <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=ABQIAAAAuej-BirKFRSuVkxzKgo41xRY4t7rSGdYdAD3IOzIl2gfzx1LOhQP_ZpM2ZILdIzLDtIKdepNo1pgyw" type="text/javascript"></script>
+
+    <script type="text/javascript">
+
+    //<![CDATA[
+
+	var map = null;
+	var msjTecnicos = new Array();
+
+    function load() {
+	if (GBrowserIsCompatible()) {
+	        map = new GMap2(document.getElementById("map"));
+		//la latitud y longitud del cliente deben ser cargados desde la bd
+		var centro = new GLatLng(-33.028104031257065, -71.5628707408905)
+		map.addControl(new GSmallMapControl());
+		map.addControl(new GMapTypeControl());
+	        map.setCenter(centro, 16,G_SATELLITE_MAP);
+		cliente = new GMarker(centro);
+		//user, head y text deben ser cargados desde la bd
+		var user = "SANDE Ltda";
+		var head= "San Jose 11, Vina del Mar";
+		var text = "Reparar Máquina EN3002 Mitzuo";
+		GEvent.addListener(cliente, "click", function() {
+			cliente.openInfoWindowHtml("<b>"+user+"<br>"+head+"</b><br>"+text);
+
+  		});
+		map.addOverlay(cliente);
+		verTecnicos();
+	}
+    }
+
+	//Funcion para crear los puntos de todos los tecnicos (con el ultimo status de c/u)
+	function createMarkerTodos(point, user, head, text, i) {
+		msjTecnicos[i] = new GMarker(point);
+		//Al hacer click sobre el punto muestra el texto
+		GEvent.addListener(msjTecnicos[i], "click", function() {
+			msjTecnicos[i].openInfoWindowHtml("<b>"+user+"<br>"+head+"</b><br>"+text);
+
+  		});
+  		return msjTecnicos[i];
+	}
+
+	function verTecnicos() {
+		//Se cargan los puntos al mapa, i debe variar hasta el numero de amigos
+		var bounds = map.getBounds();
+		var southWest = bounds.getSouthWest();
+		var northEast = bounds.getNorthEast();
+		var lngSpan = northEast.lng() - southWest.lng();
+		var latSpan = northEast.lat() - southWest.lat();
+		for (var i = 0; i < 5; i++) {
+			//aca se debe cargar las coordenadas del punto desde la bd
+			var punto = new GLatLng(southWest.lat() + latSpan * Math.random(), southWest.lng() + lngSpan * Math.random());
+			//aca se debe cargar el encabezado (tecnico fecha) y el texto desde la bd
+			var tecnico = "Juan Gonalez :"+(i+1);
+			var encabezado = "29/11/2009 20:00";
+			var texto = "Desarmando la maquina <br/><strong><a href='#'>Asignar Técnico</a></strong>";
+			map.addOverlay(createMarkerTodos(punto,tecnico,encabezado,texto, i));
+		}
+	}
+
+
+	function centrarTecnico(which) {
+		map.panTo(msjTecnicos[which].getPoint());
+	}
+
+    //]]>
+    </script>
+  </head>
+
+  <body onload="load()">
+
+      <h1>Ver Tecnicos</h1>
+
+<b>Centrar en:</b>
+      <select onchange="centrarTecnico(this.selectedIndex)">
+	<!--Aca se debe cargar la lista nombres de Tecnicos-->
+        <option>Jose Perez</option>
+        <option>Juan Gonzales</option>
+        <option>Pedro Constanzo</option>
+        <option>Jaime Ricotes</option>
+        <option>Pedro Umalo</option>
+      </select>
+<table style="text-align: left; width: 100%;" border="0" cellpadding="0" cellspacing="0">
+  <tbody>
+    <tr>
+      <td>
+           <div id="map" style="width: 640px; height: 480px"></div>
+      </td>
+      
+    </tr>
+  </tbody>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,13 @@
+<h1>Nueva Máquina</h1>
+
+<%= form_tag :action=>'create' %>
+<%= error_messages_for 'maquina' %>
+
+ <%= render :partial => 'form' %>
+<p>
+  <%= submit_tag 'Crear Máquina' %>
+</p>
+
+
+<%= link_to 'Volver', :action =>'index' %>
+

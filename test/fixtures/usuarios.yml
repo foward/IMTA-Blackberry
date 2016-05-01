@@ -1,0 +1,45 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  nombres: MyString
+  apellidos: MyString
+  usuario: MyString
+  password: MyString
+  capacidad_tecnica: 1
+  tipo_usuario: 1
+  rut: MyString
+  telefono_movil: MyString
+  telefono_oficina: MyString
+  telefono_fax: MyString
+  email: MyString
+  representante: MyString
+  empresa: MyString
+  direccion: MyString
+  numero: MyString
+  ciudad: MyString
+  comuna: MyString
+  foto_path: MyString
+  estado_tecnico: MyText
+  authtoken: MyString
+
+two:
+  nombres: MyString
+  apellidos: MyString
+  usuario: MyString
+  password: MyString
+  capacidad_tecnica: 1
+  tipo_usuario: 1
+  rut: MyString
+  telefono_movil: MyString
+  telefono_oficina: MyString
+  telefono_fax: MyString
+  email: MyString
+  representante: MyString
+  empresa: MyString
+  direccion: MyString
+  numero: MyString
+  ciudad: MyString
+  comuna: MyString
+  foto_path: MyString
+  estado_tecnico: MyText
+  authtoken: MyString

@@ -1,0 +1,98 @@
+<h1>Orden de Trabajo</h1>
+
+<fieldset>
+  <legend>Datos de Orden</legend>
+
+  <p>
+    <b>Tipo orden:</b>
+    <%=h tipo_orden(@orden.tipo_orden) %>
+  </p>
+
+  <p>
+    <b>Número orden:</b>
+    <%=h @orden.numero_orden %>
+  </p>
+
+</fieldset>
+
+<fieldset>
+  <legend>Fecha de Orden</legend>
+  <p>
+    <b>Fecha apertura:</b>
+    <%=h format_date(@orden.fecha_apertura) %>
+  </p>
+
+  <p>
+    <b>Fecha cierre:</b>
+    <% if @orden.fecha_cierre.nil? %>
+
+    <%else%>
+      <%=h format_date(@orden.fecha_cierre) %>
+    <% end %>
+  </p>
+
+</fieldset>
+
+
+<fieldset>
+  <legend>Estado y Comentarios de Reparación</legend>
+  <p>
+    <b>Estado:</b>
+    <%=h estado_orden(@orden.estado) %>
+  </p>
+
+  <p>
+    <b>Comentario inicial:</b>
+    <%=h @orden.comentario_inicial %>
+  </p>
+
+  <p>
+    <b>Comentario final de Mantención:</b>
+    <%=h @orden.comentario_final %>
+  </p>
+
+  <p>
+    <b>Comentario Jefe Técnico:</b>
+    <%=h @orden.comentario_jefe %>
+  </p>
+
+</fieldset>
+
+<fieldset>
+  <legend>Horario Visita</legend>
+  <p>
+    <b>Hora y Fecha inicio:</b>
+    <%=h format_date(@orden.hora_inicial) %>
+  </p>
+
+  <p>
+    <b>Hora y Fecha de termino:</b>
+    <%=h format_date(@orden.hora_termino) %>
+  </p>
+
+  <%= image_tag("icon_location.png")%> &nbsp; <a href="/ordens/mapa">Ver Ubicación Empresa</a>
+</fieldset>
+
+<fieldset>
+  <legend>Información Máquina</legend>
+  <p>
+    <b>Máquina:</b>
+    <%= link_to  maquina(@orden.maquina_id), :id => @orden.maquina_id, :controller => 'maquinas', :action => 'show' %>
+  </p>
+
+  <% if @usuario_en_sesion.tecnico?%>
+    <p>
+      <b>Técnico Asignado:</b>
+      <%=link_to usuario(@orden.usuario_id) , :id => @orden.usuario_id, :controller => 'usuarios', :action => 'show' %>
+    </p>
+  <% end %>
+</fieldset>
+
+<% if @usuario_en_sesion.jefe_tecnico? or @usuario_en_sesion.admin?%>
+<%= link_to 'Editar', :action =>"edit", :id => @orden %> | <%= link_to 'Volver', :action =>'index' %>
+<% end %>
+
+
+<% if @usuario_en_sesion.tecnico?%>
+<%= link_to 'Iniciar Mantención', :action =>"iniciar", :id => @orden %> | <%= link_to 'Volver', :action =>'index' %>
+<% end %>

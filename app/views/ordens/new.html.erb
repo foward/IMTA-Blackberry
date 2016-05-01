@@ -1,0 +1,15 @@
+<h1>Generar Orden</h1>
+
+<%= form_tag :action=>'create' %>
+<%= error_messages_for 'orden' %>
+
+ <%= render :partial => 'form' %>
+
+<input type="hidden" id="orden_maquina_id" name="orden[maquina_id]" value="<%= params[:maquina_id]%>"  />
+
+<p>
+  <%= submit_tag 'Generar Orden' %>
+</p>
+
+
+<%= link_to 'Volver', :action =>'index' %>

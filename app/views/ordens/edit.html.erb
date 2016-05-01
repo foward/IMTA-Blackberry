@@ -1,0 +1,14 @@
+<h1>Editar Orden</h1>
+
+<%= form_tag :action=>'update', :id => @orden  %>
+<%= error_messages_for 'orden' %>
+
+ <%= render :partial => 'form' %>
+<input type="hidden" id="orden_maquina_id" name="orden[maquina_id]" value="<%= @orden.maquina_id%>"  />
+
+<p>
+  <%= submit_tag 'Actualizar Datos' %>
+</p>
+
+<%= link_to 'Mostrar', :action =>'show', :id => @orden %>
+<%= link_to 'Volver', :action =>'index' %>

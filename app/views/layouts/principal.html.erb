@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <title>IMTA - <%= controller.action_name %></title>
+    <%= stylesheet_link_tag 'mobile' %>
+    <%= stylesheet_link_tag 'style' %>
+  </head>
+  <body>
+    <div id="header">
+      <%= link_to image_tag("logo_chico.png", :class => "nodecoration"), {:controller => "site" , :action => "index"}  %>&nbsp;&nbsp;&nbsp;
+
+
+      <% if @usuario_en_sesion -%>
+        Usuario: <%= @usuario_en_sesion.nombre_abreviado %>
+        ,&nbsp;
+        <%= link_to 'Mi perfil', {:proyecto_id => nil, :controller => "usuarios" , :action => "mi_perfil"}, :id => "perfilNav" %>
+        &nbsp;|&nbsp;
+        <%= link_to 'cerrar sesi&oacute;n', {:proyecto_id => nil, :controller => "clientes" , :action => "salir"}, :confirm => 'Desea abandonar la sesion?' %>
+      <% end -%>
+    </div>
+    <% if flash[:notice] -%>
+      <p class="notice"><%= flash[:notice] %></p>
+    <% end -%>
+    <% if flash[:error] -%>
+      <p class="error"><%= flash[:error] %></p>
+    <% end -%>
+
+    <div id="page-body">
+      <%= yield %>
+    </div>
+
+
+    <div id="footer">
+      <%= link_to 'Inicio', {:controller => "site" , :action => "index"}%> |
+      <%= link_to 'Técnicos', {:controller => "usuarios" , :action => "index"}%> |
+      <%= link_to 'Equipos', {:controller => "site" , :action => "index"}%> |
+      <%= link_to 'Inventario', {:controller => "site" , :action => "index"}%> |
+      <%= link_to 'Peticiones', {:controller => "site" , :action => "index"}%> |
+      <%= link_to 'Agenda', {:controller => "site" , :action => "index"}%> |
+      <a href="mailto:foward@gmail.com">Contacto</a>
+    </div>
+
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+
+  </body>
+</html>

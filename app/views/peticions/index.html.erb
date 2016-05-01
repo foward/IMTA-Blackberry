@@ -1,0 +1,36 @@
+<h1>Listando Peticiones</h1>
+
+<br/>
+<div id="nav">
+  <%= link_to 'Generar Petición',:controller =>'maquinas', :action => 'index' %>
+</div>
+<br/>
+
+<table id="listas">
+  <tr>
+    <th>Fecha Generación</th>
+    <th>Comentario</th>
+    <th>Fecha Recepción</th>
+    <th>Máquina</th>
+    <th>Cliente</th>
+    <th>Generar Orden</th>
+    <th colspan="3">Acciones</th>
+  </tr>
+
+<% @peticions.each do |peticion| %>
+  <tr>
+    <td><%=h format_date(peticion.created_at) %></td>
+    <td><%=h peticion.comentario %></td>
+    <td><%=h I18n.l peticion.fecha_recepcion.to_date %></td>
+    <td> <%= link_to  maquina(peticion.maquina_id), :id => peticion.maquina_id, :controller => 'maquinas', :action => 'show' %></td>
+    <td><%=h empresa(peticion.usuario_id) %></td>
+    <td><%= link_to image_tag("icon_create.png", :class => "nodecoration"),:controller => 'ordens', :action => 'new', :maquina_id => peticion.maquina_id%></td>
+    <td><%= link_to image_tag("icon_show.png", :class => "nodecoration"), :action => 'show', :id => peticion %></td>
+    <td><%= link_to image_tag("icon_edit.png",:class => "nodecoration"), :action => 'edit', :id => peticion %></td>
+    <td> <%= link_to image_tag("icon_delete.png",:class => "nodecoration"), {:controller => 'peticions' , :action => 'destroy', :id => peticion} , :confirm => 'Desea eliminar esta petición? \n IMPORTANTE: No hay vuelta atras!', :post => true %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+

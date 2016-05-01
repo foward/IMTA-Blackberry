@@ -1,0 +1,21 @@
+<h1>Ingreso</h1>
+
+
+<%= form_tag :action=>'ingresar' %>
+
+
+        <label for="usuario">
+            Usuario:
+        </label>
+        <%= text_field "userform", "usuario", :size=>20 ,:class =>"inputText"%>
+<br/>
+        <label for="password">
+          Clave:&nbsp;&nbsp;&nbsp;&nbsp;
+        </label>
+        <%= password_field "userform", "password", :size=>20 ,:class =>"inputText"%>
+
+
+<br/>
+
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   <%= submit_tag "Ingresar" , :class => "btn"%>
+

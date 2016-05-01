@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  comentario: MyText
+  fecha_recepcion: 2009-11-24 15:32:00
+  maquina_id: 1
+  usuario_id: 1
+
+two:
+  comentario: MyText
+  fecha_recepcion: 2009-11-24 15:32:00
+  maquina_id: 1
+  usuario_id: 1

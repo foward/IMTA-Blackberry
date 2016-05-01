@@ -1,0 +1,59 @@
+<p>
+  <%=h @maquina.foto_1 %>
+  <!-- Image Tag -->
+</p>
+
+<p>
+  <b>Marca:</b>
+  <%=h @maquina.marca %>
+</p>
+
+<p>
+  <b>Modelo:</b>
+  <%=h @maquina.modelo %>
+</p>
+
+<p>
+  <b>Num serie:</b>
+  <%=h @maquina.num_serie %>
+</p>
+
+<p>
+  <b>Código interno:</b>
+  <%=h @maquina.codigo_interno %>
+</p>
+
+
+<p>
+  <b>Descripción:</b>
+  <%=h @maquina.descripcion %>
+</p>
+<% if @usuario_en_sesion.jefe_tecnico?  or @usuario_en_sesion.admin?%>
+<p>
+  <b>Tipo de Area Técnica que necesita esta máquina:</b>
+  <%=h capacidad_tecnica(@maquina.tipo_area_tecnica) %>
+
+</p>
+<% end  %>
+<p>
+  <b>Fecha compra:</b>
+  <%=h @maquina.fecha_compra %>
+</p>
+
+<p>
+  <b>Fecha Termino Garantía:</b>
+  <%=h @maquina.fecha_termino_garantia %>
+</p>
+
+
+<p>
+  <b>Cliente:</b>
+  <%=h maquina_es_de(@maquina.usuario_id) %>
+</p>
+
+<a href="/manuales"><%= image_tag("icon_pdf.png", :class=>"nodecoration")%> &nbsp; Manuales</a>
+
+<br/>
+<%= link_to 'Editar', :action =>"edit", :id => @maquina.id %> | <%= link_to 'Volver', :action =>'index' %>
+
+
